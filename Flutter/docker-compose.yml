@@ -1,0 +1,17 @@
+services:
+  flutter_builder:
+    image: ghcr.io/cirruslabs/flutter:3.19.0
+    container_name: flutter
+    environment:
+      - BITBUCKET_USERNAME=ahsinirshad
+      - BITBUCKET_PASSWORD=ATBBF76pH2xtUsKwVPJjW9qBdQjM7AA2638E
+      - BITBUCKET_URL=https://ahsinirshad@bitbucket.org/gfmtech/docker_test.git
+    command: >
+      sh -c "
+        echo 'Original BITBUCKET_URL: $$BITBUCKET_URL'
+        FORMATTED_URL='https://$$BITBUCKET_USERNAME:$$BITBUCKET_PASSWORD@$${BITBUCKET_URL#https://}'
+        echo 'Formatted BITBUCKET_URL: $$FORMATTED_URL'
+        echo $$FORMATTED_URL
+        git --version
+        tail -f /dev/null
+      "

@@ -1,0 +1,30 @@
+services:
+  db:
+    image: mysql
+    container_name: mysql_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456  # Change this to a secure password
+      MYSQL_DATABASE: quiz         # Optional: Create a default database
+      MYSQL_USER: ahsin                 # Optional: Create a default user
+      MYSQL_PASSWORD: 123456         # Optional: Password for the default user
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/Users/ahsin/Development/docker_volumes/mysql       # Persist MySQL data
+
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: phpmyadmin
+    restart: always
+    ports:
+      - "8181:80"
+    environment:
+      PMA_HOST: db                       # Link to the MySQL service
+      PMA_USER: root                     # Default user for PHPMyAdmin
+      PMA_PASSWORD: 123456        # Password for the root user
+    depends_on:
+      - db
+
+volumes:
+  mysql_data:
